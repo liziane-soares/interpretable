@@ -12,6 +12,8 @@
   <h2>Interpretabilidade de CLASSIFICAÇÕES - Agnews - Redirecionando...</h2>
 
   <script>
+    var fallbackURL = "https://pt.surveymonkey.com/r/2MVRTBS";
+
     // ✅ Configuração do Firebase
     var firebaseConfig = {
       apiKey: "AIzaSyC_ViGwQ4UfLBtCC1MzbBDJcLnlcadj0qI",
@@ -52,18 +54,16 @@
         if (chaves.length > 0) {
           var primeiraChave = chaves[0];
           var fallbackLink = urls[primeiraChave].link;
-
-          // Atualiza acessos da primeira
           db.ref("urls/" + primeiraChave + "/acessos").set(urls[primeiraChave].acessos + 1);
           window.location.href = fallbackLink;
         } else {
-          document.body.innerHTML = "<p>Erro: Nenhuma URL cadastrada no banco.</p>";
+          window.location.href = fallbackURL;
         }
       }
     }).catch(error => {
-      document.body.innerHTML = "<p>Erro ao acessar o banco: " + error + "</p>";
+      console.error("Erro ao acessar o banco:", error);
+      window.location.href = fallbackURL;
     });
   </script>
 </body>
 </html>
-
